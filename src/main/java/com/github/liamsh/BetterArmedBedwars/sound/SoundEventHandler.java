@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.sound.SoundEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -25,6 +24,11 @@ public class SoundEventHandler {
                 x,
                 y,
                 z
+        ));
+    }
+    public static void playSound(String resourceName) {
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(
+                new ResourceLocation(resourceName)
         ));
     }
 
@@ -86,7 +90,7 @@ public class SoundEventHandler {
         float y = sound.getYPosF();
         float z = sound.getZPosF();
 
-        if (!ServerData.inGame("ARMED")) {
+        if (!ServerData.inGame("Armed")) {
             switch (name) {
                 case "mob.irongolem.hit":
                 case "fireworks.blast":
@@ -134,11 +138,11 @@ public class SoundEventHandler {
                 return true;
 
             case "fireworks.blast":
-                if (pitch != 2.0f) return false;
+                if (pitch < 2.49f) return false;
                 playSound("guns.smg.shot", vol, x,y,z);
                 return true;
             case "fireworks.blast_far":
-                if (pitch != 2.0f) return false;
+                if (pitch < 2.49f) return false;
                 playSound("guns.smg.shot", 0.5f, x,y,z);
                 return true;
             case "fireworks.largeBlast":
@@ -156,37 +160,40 @@ public class SoundEventHandler {
             case "mob.horse.gallop":
                 switch(lastGun.getItem().getRegistryName()) {
                     case "minecraft:wooden_hoe":
-                        playSound("guns.pistol.reload", vol, x,y,z);
+                        playSound("guns.pistol.reload");
                         break;
                     case "minecraft:golden_hoe":
-                        playSound("guns.magnum.reload", vol, x,y,z);
+                        playSound("guns.magnum.reload");
                         break;
                     case "minecraft:stone_hoe":
-                        playSound("guns.rifle.reload", vol, x,y,z);
+                        playSound("guns.rifle.reload");
                         break;
                     case "minecraft:iron_hoe":
-                        playSound("guns.shotgun.reload", vol, x,y,z);
+                        playSound("guns.shotgun.reload");
                         break;
                     case "minecraft:diamond_hoe":
-                        playSound("guns.smg.reload", vol, x,y,z);
+                        playSound("guns.smg.reload");
                         break;
                     case "minecraft:flint_and_steel":
-                        playSound("guns.flamethrower.reload", vol, x,y,z);
+                        playSound("guns.flamethrower.reload");
                         break;
                 }
 
                 return true;
             case "random.successful_hit":
-                if (pitch != 2.0f) return false;
+                if (pitch != 2.0f && pitch != 1.4920635f) return false;
                 playSound("bullet.hit", vol, x,y,z);
                 return true;
             case "tile.piston.in":
-                if (pitch != 2.0f) return false;
+                if (pitch < 2.0f) return false;
                 playSound("bullet.whizz", vol, x,y,z);
                 return true;
             case "random.orb":
-                //kill
-                return false;
+                EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+                if (player.deathTime > 0) return false;
+                if (player.getHealth() <= 0) return false;
+                playSound("bullet.kill");
+                return true;
             default:
                 return true;
         }

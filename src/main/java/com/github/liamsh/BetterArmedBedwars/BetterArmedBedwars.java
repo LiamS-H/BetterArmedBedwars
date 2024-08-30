@@ -24,17 +24,15 @@ public class BetterArmedBedwars {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        ItemNbtAnimationsFix itemNbtAnimationsFix = new ItemNbtAnimationsFix();
-        itemNbtAnimationsFix.init(event);
+        MinecraftForge.EVENT_BUS.register(new SoundEventHandler());
+        MinecraftForge.EVENT_BUS.register(new ServerData());
+        new ItemNbtAnimationsFix().intialize();
     }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         TexturesLoader texturesLoader = new TexturesLoader();
         texturesLoader.preInit(event);
-
-        MinecraftForge.EVENT_BUS.register(new SoundEventHandler());
-        MinecraftForge.EVENT_BUS.register(new ServerData());
     }
 
 

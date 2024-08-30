@@ -7,9 +7,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import scala.collection.parallel.ParIterableLike;
 
 import java.lang.reflect.Field;
 
@@ -47,13 +48,13 @@ public class ItemNbtAnimationsFix {
     private int lastDamage = -1;
     private int lastSlot = -1;
     private int disableTime = 0;
-    private Field equippedProgressField;
-    private Field itemToRenderField;
-    private Field prevEquippedProgressField;
+    private static Field equippedProgressField;
+    private static Field itemToRenderField;
+    private static Field prevEquippedProgressField;
 
 
 
-    public void init(FMLInitializationEvent event) {
+    public void intialize() {
         try {
             equippedProgressField = ItemRenderer.class.getDeclaredField("field_78454_c");
             equippedProgressField.setAccessible(true);
@@ -141,7 +142,6 @@ public class ItemNbtAnimationsFix {
             int var = 10;
 
             if (curDamage != prevDamage) {disableTime = var;}
-            System.out.println("resetting animation!");
 
 //            float currentProgress = equippedProgressField.getFloat(itemRenderer);
             equippedProgressField.setFloat(itemRenderer, 1.0F);
@@ -168,5 +168,15 @@ public class ItemNbtAnimationsFix {
         handleEquipAnimation();
     }
 
+    @SubscribeEvent
+    public void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
+        if (event.entity == null) return;
+        if (event.entity != Minecraft.getMinecraft().thePlayer) return;
+
+        lastStack = null;
+        lastDamage = -1;
+        lastSlot = -1;
+        disableTime = 0;
+    }
 
 }
