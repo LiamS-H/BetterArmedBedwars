@@ -107,6 +107,5 @@ public class ServerData {
         } catch (Exception e) {
             // null error
         }
-        System.out.println("Detected: " + gameType);
     }
 }
