@@ -3,6 +3,8 @@ _This mod is unaffiliated with Hypixel Inc_
 
 Limited by the 1.8.9 resourcepack API, I created this mod to finish my ideas for the Ultimate Armed Bedwars Resourcepack!
 
+[CurseForge Link](https://curseforge.com/minecraft/mc-mods/better-armed-bedwars)
+
 ## Mod Details
 _This mod completely overhauls the sounds and visuals for Armed Bedwars. It adds custom models, sounds, and animations to each gun._
 - **Client-Side:** This mod is entirely cosmetic and designed to run on the Hypixel server.
