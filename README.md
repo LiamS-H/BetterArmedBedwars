@@ -3,6 +3,8 @@ _This mod is unaffiliated with Hypixel Inc_
 
 Limited by the 1.8.9 resourcepack API, I created this mod to finish my ideas for the Ultimate Armed Bedwars Resourcepack!
 
+[Modrinth Link](https://modrinth.com/mod/better-armed-bedwars)
+
 [CurseForge Link](https://curseforge.com/minecraft/mc-mods/better-armed-bedwars)
 
 ## Mod Details
