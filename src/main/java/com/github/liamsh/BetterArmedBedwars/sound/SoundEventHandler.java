@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.sound.SoundEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -134,11 +133,11 @@ public class SoundEventHandler {
                 return true;
 
             case "fireworks.blast":
-                if (pitch != 2.0f) return false;
+                if (pitch < 2.49f) return false;
                 playSound("guns.smg.shot", vol, x,y,z);
                 return true;
             case "fireworks.blast_far":
-                if (pitch != 2.0f) return false;
+                if (pitch < 2.49f) return false;
                 playSound("guns.smg.shot", 0.5f, x,y,z);
                 return true;
             case "fireworks.largeBlast":
@@ -177,11 +176,11 @@ public class SoundEventHandler {
 
                 return true;
             case "random.successful_hit":
-                if (pitch != 2.0f) return false;
+                if (pitch < 2.49f) return false;
                 playSound("bullet.hit", vol, x,y,z);
                 return true;
             case "tile.piston.in":
-                if (pitch != 2.0f) return false;
+                if (pitch < 2.49f) return false;
                 playSound("bullet.whizz", vol, x,y,z);
                 return true;
             case "random.orb":
