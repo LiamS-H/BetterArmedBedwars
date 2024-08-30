@@ -1,0 +1,16 @@
+[
+{
+  "modid": "betterarmedbedwars",
+  "name": "Better Armed Bedwars",
+  "description": "Client-side sounds, animations, and models for the Armed Bedwars Game mode on Hypixel.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["brikminer"],
+  "credits": "The Forge and FML guys, for making this example. dxxxxy for fixing it.",
+  "logoFile": "BABWicon.jpeg",
+  "screenshots": [],
+  "dependencies": ["optifine"]
+}
+]
