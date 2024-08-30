@@ -103,7 +103,7 @@ public class ServerData {
             mode = locrawData.get("mode").getAsString();
             gameType = mode;
         } catch (JsonSyntaxException e) {
-            // json was in unexpect format (cause in lobby servers)
+            // json was in unexpected format (cause in lobby servers)
         } catch (Exception e) {
             // null error
         }
