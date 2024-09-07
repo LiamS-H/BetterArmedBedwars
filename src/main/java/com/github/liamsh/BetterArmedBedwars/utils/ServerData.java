@@ -62,6 +62,16 @@ public class ServerData {
         return gameType.toUpperCase().endsWith(mode.toUpperCase());
     }
 
+    public static boolean notInArmed() {
+        switch (gameType) {
+            case "BEDWARS_EIGHT_TWO_ARMED":
+            case "BEDWARS_FOUR_FOUR_ARMED":
+                return false;
+            default:
+                return true;
+        }
+    }
+
     @SubscribeEvent
     public void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
         if (event.entity == null) return;

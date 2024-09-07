@@ -90,7 +90,7 @@ public class SoundEventHandler {
         float y = sound.getYPosF();
         float z = sound.getZPosF();
 
-        if (!ServerData.inGame("Armed")) {
+        if (ServerData.notInArmed()) {
             switch (name) {
                 case "mob.irongolem.hit":
                 case "fireworks.blast":
