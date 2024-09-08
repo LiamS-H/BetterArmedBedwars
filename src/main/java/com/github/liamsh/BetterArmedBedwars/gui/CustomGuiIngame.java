@@ -12,20 +12,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CustomGuiIngame extends GuiIngameForge {
-    private boolean needsInit = true;
-
-    public void init() {
-        this.mc.ingameGUI = this;
-        needsInit = false;
-        System.out.println("CustomGuiIngame has been initialized");
-    }
-
-    @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (!needsInit) return;
-        init();
-    }
-
     public CustomGuiIngame(Minecraft mc) {
         super(mc);
         System.out.println("CustomGuiIngame has been initialized");

@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TexturesLoader {
-    public void preInit(FMLPreInitializationEvent event) {
-        registerResourcePack();
-    }
-    private void registerResourcePack() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("assets/BetterArmedBedwars/textures.zip");
+
+    public static void registerResourcePack() {
+        InputStream inputStream = TexturesLoader.class.getClassLoader().getResourceAsStream("assets/BetterArmedBedwars/textures.zip");
 
         if (inputStream == null) {
             System.out.println("Failed to Locate Mod Textures");
@@ -36,7 +34,7 @@ public class TexturesLoader {
 
             ResourcePackRepository resourcePackRepository = Minecraft.getMinecraft().getResourcePackRepository();
 
-            Constructor<ResourcePackRepository.Entry> constructor = ResourcePackRepository.Entry.class.getDeclaredConstructor(ResourcePackRepository.class, File.class);
+            @SuppressWarnings("JavaReflectionMemberAccess") Constructor<ResourcePackRepository.Entry> constructor = ResourcePackRepository.Entry.class.getDeclaredConstructor(ResourcePackRepository.class, File.class);
             constructor.setAccessible(true);
             ResourcePackRepository.Entry packEntry = constructor.newInstance(resourcePackRepository, resourceFile);
             packEntry.updateResourcePack();

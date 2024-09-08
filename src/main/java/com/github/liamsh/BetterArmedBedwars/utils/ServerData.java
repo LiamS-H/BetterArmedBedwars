@@ -1,5 +1,6 @@
 package com.github.liamsh.BetterArmedBedwars.utils;
 
+import com.github.liamsh.BetterArmedBedwars.BetterArmedBedwars;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -13,6 +14,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ServerData {
     public static String gameType = null;
     private static boolean waitingForLocRaw = false;
+    private static final boolean DEBUG = BetterArmedBedwars.DEBUG;
+
+
     public static NBTTagCompound getNBT() {
         net.minecraft.client.multiplayer.ServerData serverData = Minecraft.getMinecraft().getCurrentServerData();
         if (serverData == null) {
@@ -63,6 +67,8 @@ public class ServerData {
     }
 
     public static boolean notInArmed() {
+        if (DEBUG) return false;
+        if (gameType == null) return true;
         switch (gameType) {
             case "BEDWARS_EIGHT_TWO_ARMED":
             case "BEDWARS_FOUR_FOUR_ARMED":

@@ -84,12 +84,6 @@ public class SoundEventHandler {
     public boolean handleSound(SoundEvent.SoundSourceEvent event) {
         ISound sound = event.sound;
         String name = event.name;
-        float pitch = sound.getPitch();
-        float vol = sound.getVolume();
-        float x = sound.getXPosF();
-        float y = sound.getYPosF();
-        float z = sound.getZPosF();
-
         if (ServerData.notInArmed()) {
             switch (name) {
                 case "mob.irongolem.hit":
@@ -106,6 +100,12 @@ public class SoundEventHandler {
                 default: return true;
             }
         }
+
+        float pitch = sound.getPitch();
+        float vol = sound.getVolume();
+        float x = sound.getXPosF();
+        float y = sound.getYPosF();
+        float z = sound.getZPosF();
 
         switch (name) {
             case "mob.irongolem.hit":
