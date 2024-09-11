@@ -2,7 +2,22 @@ package com.github.liamsh.BetterArmedBedwars.utils;
 
 import net.minecraft.item.Item;
 
-public class GunFinder {
+enum gunState {
+    RELOADING,
+    FIRING,
+    SHOOTING,
+}
+
+enum guns {
+    PISTOL,
+    MAGNUM,
+    SMG,
+    RIFLE,
+    SHOTGUN,
+    FLAMETHROWER,
+}
+
+public class GunUtil {
     public static boolean isGun(Item item) {
         if (item == null) return false;
         return item.getRegistryName().equals("minecraft:wooden_hoe")||
@@ -12,40 +27,46 @@ public class GunFinder {
                 item.getRegistryName().equals("minecraft:diamond_hoe") ||
                 item.getRegistryName().equals("minecraft:flint_and_steel");
     }
-    public static String whichGun(Item item) {
+    public static guns whichGun(Item item) {
         switch (item.getRegistryName()) {
             case "minecraft:wooden_hoe":
-                return "Pistol";
+                return guns.PISTOL;
             case "minecraft:stone_hoe":
-                return "Rifle";
+                return guns.RIFLE;
             case "minecraft:iron_hoe":
-                return "Shotgun";
+                return guns.SHOTGUN;
             case "minecraft:golden_hoe":
-                return "Magnum";
+                return guns.MAGNUM;
             case "minecraft:diamond_hoe":
-                return "Smg";
+                return guns.SMG;
             case "minecraft:flint_and_steel":
-                return "Flamethrower";
+                return guns.FLAMETHROWER;
             default:
                 return null;
         }
     }
-    public static int maxAmmo(Item item) {
-        switch (item.getRegistryName()) {
-            case "minecraft:wooden_hoe":
+    public static int maxAmmo(guns gun) {
+        switch (gun) {
+            case PISTOL:
                 return 12;
-            case "minecraft:stone_hoe":
+            case RIFLE:
                 return 25;
-            case "minecraft:iron_hoe":
+            case SHOTGUN:
                 return 4;
-            case "minecraft:golden_hoe":
+            case MAGNUM:
                 return 6;
-            case "minecraft:diamond_hoe":
+            case SMG:
                 return 45;
-            case "minecraft:flint_and_steel":
+            case FLAMETHROWER:
                 return 50;
             default:
                 return -1;
         }
+    }
+
+    public static int maxAmmo(Item item) {
+        guns gun = whichGun(item);
+        if (gun == null) return -1;
+        return maxAmmo(gun);
     }
 }

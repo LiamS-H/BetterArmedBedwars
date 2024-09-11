@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.lang.reflect.Field;
 
-import static com.github.liamsh.BetterArmedBedwars.utils.GunFinder.isGun;
+import static com.github.liamsh.BetterArmedBedwars.utils.GunUtil.isGun;
 
 //        field_110931_c
 //        Type: net.minecraft.util.ResourceLocation

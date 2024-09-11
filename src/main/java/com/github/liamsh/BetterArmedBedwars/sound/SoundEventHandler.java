@@ -1,6 +1,6 @@
 package com.github.liamsh.BetterArmedBedwars.sound;
 
-import com.github.liamsh.BetterArmedBedwars.utils.GunFinder;
+import com.github.liamsh.BetterArmedBedwars.utils.GunUtil;
 import com.github.liamsh.BetterArmedBedwars.utils.PlayerProximity;
 import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
 import net.minecraft.client.Minecraft;
@@ -215,7 +215,7 @@ public class SoundEventHandler {
         if (player == null) return;
         ItemStack currentHeldItem = player.getHeldItem();
         if (currentHeldItem == null) return;
-        if (GunFinder.isGun(currentHeldItem.getItem())) {
+        if (GunUtil.isGun(currentHeldItem.getItem())) {
             lastGun = currentHeldItem;
         }
     }
