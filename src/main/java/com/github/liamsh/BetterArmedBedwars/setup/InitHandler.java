@@ -2,10 +2,9 @@ package com.github.liamsh.BetterArmedBedwars.setup;
 
 
 import com.github.liamsh.BetterArmedBedwars.animation.ItemNbtAnimationsFix;
-import com.github.liamsh.BetterArmedBedwars.gui.CustomGuiIngame;
+import com.github.liamsh.BetterArmedBedwars.gui.Hud;
 import com.github.liamsh.BetterArmedBedwars.utils.TexturesLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -30,7 +29,7 @@ public class InitHandler {
     }
 
     public static void postPostInit(TickEvent.ClientTickEvent event) {
-        mc.ingameGUI = new CustomGuiIngame(mc);
+        mc.ingameGUI = new Hud(mc);
     }
 
     @SubscribeEvent
