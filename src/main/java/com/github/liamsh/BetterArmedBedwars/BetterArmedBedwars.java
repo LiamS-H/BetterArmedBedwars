@@ -1,10 +1,6 @@
 package com.github.liamsh.BetterArmedBedwars;
 
-import com.github.liamsh.BetterArmedBedwars.animation.ItemNbtAnimationsFix;
-import com.github.liamsh.BetterArmedBedwars.gui.CustomGuiIngame;
 import com.github.liamsh.BetterArmedBedwars.setup.InitHandler;
-import com.github.liamsh.BetterArmedBedwars.utils.TexturesLoader;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
