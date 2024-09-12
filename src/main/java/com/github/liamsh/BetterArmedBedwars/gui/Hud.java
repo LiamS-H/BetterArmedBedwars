@@ -37,8 +37,6 @@ public class Hud extends GuiIngameForge {
     public void renderGameOverlay(float partialTicks) {
         ScaledResolution res = new ScaledResolution(mc);
         eventParent = new RenderGameOverlayEvent(partialTicks, res);
-        int width = res.getScaledWidth();
-        int height = res.getScaledHeight();
         super.renderGameOverlay(partialTicks);
     }
 
@@ -75,7 +73,7 @@ public class Hud extends GuiIngameForge {
 //            Minecraft.getMinecraft().ingameGUI.drawTexturedModalRect(xpBarX, xpBarY, 0, 64, barWidth, 5);
 //            Minecraft.getMinecraft().ingameGUI.drawTexturedModalRect(xpBarX, xpBarY, 0, 69, filledWidth, 5);
 //            mc.mcProfiler.endSection();
-//        }if (this.showCrosshair())
+//        }
 
 
         int hotbarX = width / 2 - barWidth / 2;
@@ -91,7 +89,9 @@ public class Hud extends GuiIngameForge {
         mc.mcProfiler.endSection();
         post(EXPERIENCE);
 
-        if (player.experience + 0.1f > 1.0f) return;
+        float threshold = (player.experienceLevel <= 15 ? 1/((float)player.experienceLevel*2+6) : 1/((float)player.experienceLevel*5-39));
+
+        if (player.experience + threshold > 1.0f) return;
         GlStateManager.pushMatrix();
 
         int cooldown_progress = (int)(player.experience * 17.0);
