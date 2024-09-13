@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = BetterArmedBedwars.MODID, version = BetterArmedBedwars.VERSION, name = BetterArmedBedwars.NAME)
 public class BetterArmedBedwars {
     public static final String MODID = "BetterArmedBedwars";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.0.1";
     public static final String NAME = "Better Armed Bedwars";
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         InitHandler.preInit(event);
