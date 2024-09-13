@@ -77,9 +77,13 @@ public class SoundEventHandler {
     }
 
     public static boolean isBlockChord(float value) {
-        float decimalPart =  Math.abs(value) - Math.abs((int) value);
-        return Float.compare(decimalPart, 0.5f) == 0;
+        return endsWith(value, 0.5F);
     }
+    public static boolean endsWith(float a, float b) {
+        float decimalPart =  Math.abs(a) - Math.abs((int) a);
+        return Float.compare(decimalPart, b) == 0;
+    }
+
 
     public boolean handleSound(SoundEvent.SoundSourceEvent event) {
         ISound sound = event.sound;
@@ -137,6 +141,7 @@ public class SoundEventHandler {
                 playSound("guns.magnum.shot", vol, x,y,z);
                 return true;
 
+
             case "fireworks.blast":
                 if (pitch < 2.49f) return false;
                 playSound("guns.smg.shot", vol, x,y,z);
@@ -146,15 +151,22 @@ public class SoundEventHandler {
                 playSound("guns.smg.shot", 0.5f, x,y,z);
                 return true;
             case "fireworks.largeBlast":
-                if (pitch < 2.49f) return false;
-                playSound("guns.rifle.shot", vol, x,y,z);
-                return true;
+                if (pitch > 2.49F) {
+                    playSound("guns.rifle.shot", x,y,z);
+                    return true;
+                }
+                if (pitch < 0.794) {
+                    playSound("guns.magnum.shot", x,y,z);
+                    return true;
+                }
+                return false;
             case "random.explode":
                 if (pitch < 2.49f) return false;
                 playSound("guns.shotgun.shot", vol, x,y,z);
                 return true;
             case "fire.fire":
                 if (isBlockChord(x) && isBlockChord(y) && isBlockChord(z)) return false;
+                if (endsWith(x,0.0F) && endsWith(y,0.5625F) && endsWith(z,0.0F)) return false;
                 playSound("guns.flamethrower.shot", vol, x,y,z);
                 return true;
             case "mob.horse.gallop":
