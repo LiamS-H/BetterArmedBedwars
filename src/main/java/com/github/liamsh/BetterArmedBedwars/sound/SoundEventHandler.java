@@ -185,7 +185,6 @@ public class SoundEventHandler {
                 playSound("bullet.hit", vol, x,y,z);
                 return true;
             case "tile.piston.in":
-                if (pitch < 2.0f) return false;
                 playSound("bullet.whizz", vol, x,y,z);
                 return true;
             case "random.orb":
