@@ -4,6 +4,7 @@ import com.github.liamsh.BetterArmedBedwars.utils.GunUtil;
 import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
 import com.github.liamsh.BetterArmedBedwars.utils.StateHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
@@ -25,6 +27,9 @@ import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType
 
 public class Hud extends GuiIngameForge {
     private RenderGameOverlayEvent eventParent;
+
+    FontRenderer fontrenderer = null;
+    private static final int WHITE = 0xFFFFFF;
     public ResourceLocation gun_cooldown = new ResourceLocation("textures/gui/gun_cooldown.png");
 
     public Hud(Minecraft mc) {
@@ -37,6 +42,7 @@ public class Hud extends GuiIngameForge {
     public void renderGameOverlay(float partialTicks) {
         ScaledResolution res = new ScaledResolution(mc);
         eventParent = new RenderGameOverlayEvent(partialTicks, res);
+        fontrenderer = mc.fontRendererObj;
         super.renderGameOverlay(partialTicks);
     }
 
@@ -90,8 +96,9 @@ public class Hud extends GuiIngameForge {
         post(EXPERIENCE);
 
         float threshold = (player.experienceLevel <= 15 ? 1/((float)player.experienceLevel*2+6) : 1/((float)player.experienceLevel*5-39));
+        threshold = Math.max(threshold, 0.1F);
 
-        if (player.experience + threshold > 1.0f) return;
+        if (player.experience + threshold >= 1.0f) return;
         GlStateManager.pushMatrix();
 
         int cooldown_progress = (int)(player.experience * 17.0);
@@ -123,6 +130,9 @@ public class Hud extends GuiIngameForge {
     {
         if (ServerData.notInArmed()) {
             super.renderHealth(width, height);
+            return;
+        }
+        if (mc.thePlayer.capabilities.allowFlying) {
             return;
         }
 
@@ -260,6 +270,59 @@ public class Hud extends GuiIngameForge {
         mc.mcProfiler.endSection();
         post(ARMOR);
     }
+    protected void renderToolHightlight(ScaledResolution res)
+    {
+        if (ServerData.notInArmed()) {
+            super.renderToolHightlight(res);
+            return;
+        }
+        if (this.mc.gameSettings.heldItemTooltips && !this.mc.playerController.isSpectator())
+        {
+            mc.mcProfiler.startSection("toolHighlight");
+
+            if (this.remainingHighlightTicks > 0 && this.highlightingItemStack != null)
+            {
+                String name = this.highlightingItemStack.getDisplayName();
+                if (this.highlightingItemStack.hasDisplayName())
+                    name = EnumChatFormatting.ITALIC + name;
+
+                name = this.highlightingItemStack.getItem().getHighlightTip(this.highlightingItemStack, name);
+
+                int opacity = (int)((float)this.remainingHighlightTicks * 256.0F / 10.0F);
+                if (opacity > 255) opacity = 255;
+
+                if (opacity > 0)
+                {
+                    int y = res.getScaledHeight() - 47;
+                    if (!mc.playerController.shouldDrawHUD()) y += 14;
+
+                    GlStateManager.pushMatrix();
+                    GlStateManager.enableBlend();
+                    GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+                    FontRenderer font = highlightingItemStack.getItem().getFontRenderer(highlightingItemStack);
+                    if (font != null)
+                    {
+                        int x = (res.getScaledWidth() - font.getStringWidth(name)) / 2;
+                        font.drawStringWithShadow(name, x, y, WHITE | (opacity << 24));
+                    }
+                    else
+                    {
+                        int x = (res.getScaledWidth() - fontrenderer.getStringWidth(name)) / 2;
+                        fontrenderer.drawStringWithShadow(name, x, y, WHITE | (opacity << 24));
+                    }
+                    GlStateManager.disableBlend();
+                    GlStateManager.popMatrix();
+                }
+            }
+
+            mc.mcProfiler.endSection();
+        }
+        else if (this.mc.thePlayer.isSpectator())
+        {
+            this.spectatorGui.renderSelectedItem(res);
+        }
+    }
+
     private boolean pre(RenderGameOverlayEvent.ElementType type)
     {
         return MinecraftForge.EVENT_BUS.post(new RenderGameOverlayEvent.Pre(eventParent, type));
