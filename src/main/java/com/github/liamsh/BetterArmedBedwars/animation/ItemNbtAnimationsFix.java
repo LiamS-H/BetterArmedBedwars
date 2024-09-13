@@ -1,20 +1,19 @@
 package com.github.liamsh.BetterArmedBedwars.animation;
 
+import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import scala.collection.parallel.ParIterableLike;
 
 import java.lang.reflect.Field;
 
-import static com.github.liamsh.BetterArmedBedwars.utils.GunFinder.isGun;
+import static com.github.liamsh.BetterArmedBedwars.utils.GunUtil.isGun;
 
 //        field_110931_c
 //        Type: net.minecraft.util.ResourceLocation
@@ -54,7 +53,9 @@ public class ItemNbtAnimationsFix {
 
 
 
-    public void intialize() {
+
+    @SuppressWarnings("JavaReflectionMemberAccess")
+    public static void init() {
         try {
             equippedProgressField = ItemRenderer.class.getDeclaredField("field_78454_c");
             equippedProgressField.setAccessible(true);
@@ -65,13 +66,11 @@ public class ItemNbtAnimationsFix {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        MinecraftForge.EVENT_BUS.register(this);
-
-        System.out.println("ItemNbtAnimationsFix Loaded!");
     }
 
     public void handleEquipAnimation() {
+        if (ServerData.notInArmed()) return;
+
         Minecraft mc = Minecraft.getMinecraft();
         ItemRenderer itemRenderer = mc.entityRenderer.itemRenderer;
         EntityPlayerSP player = mc.thePlayer;

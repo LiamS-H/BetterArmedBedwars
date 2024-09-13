@@ -1,6 +1,6 @@
 package com.github.liamsh.BetterArmedBedwars.sound;
 
-import com.github.liamsh.BetterArmedBedwars.utils.GunFinder;
+import com.github.liamsh.BetterArmedBedwars.utils.GunUtil;
 import com.github.liamsh.BetterArmedBedwars.utils.PlayerProximity;
 import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
 import net.minecraft.client.Minecraft;
@@ -84,13 +84,7 @@ public class SoundEventHandler {
     public boolean handleSound(SoundEvent.SoundSourceEvent event) {
         ISound sound = event.sound;
         String name = event.name;
-        float pitch = sound.getPitch();
-        float vol = sound.getVolume();
-        float x = sound.getXPosF();
-        float y = sound.getYPosF();
-        float z = sound.getZPosF();
-
-        if (!ServerData.inGame("Armed")) {
+        if (ServerData.notInArmed()) {
             switch (name) {
                 case "mob.irongolem.hit":
                 case "fireworks.blast":
@@ -106,6 +100,12 @@ public class SoundEventHandler {
                 default: return true;
             }
         }
+
+        float pitch = sound.getPitch();
+        float vol = sound.getVolume();
+        float x = sound.getXPosF();
+        float y = sound.getYPosF();
+        float z = sound.getZPosF();
 
         switch (name) {
             case "mob.irongolem.hit":
@@ -185,7 +185,6 @@ public class SoundEventHandler {
                 playSound("bullet.hit", vol, x,y,z);
                 return true;
             case "tile.piston.in":
-                if (pitch < 2.0f) return false;
                 playSound("bullet.whizz", vol, x,y,z);
                 return true;
             case "random.orb":
@@ -215,7 +214,7 @@ public class SoundEventHandler {
         if (player == null) return;
         ItemStack currentHeldItem = player.getHeldItem();
         if (currentHeldItem == null) return;
-        if (GunFinder.isGun(currentHeldItem.getItem())) {
+        if (GunUtil.isGun(currentHeldItem.getItem())) {
             lastGun = currentHeldItem;
         }
     }
