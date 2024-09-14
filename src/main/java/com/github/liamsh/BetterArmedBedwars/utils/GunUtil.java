@@ -28,6 +28,7 @@ public class GunUtil {
                 item.getRegistryName().equals("minecraft:flint_and_steel");
     }
     public static guns whichGun(Item item) {
+        if (item == null) return null;
         switch (item.getRegistryName()) {
             case "minecraft:wooden_hoe":
                 return guns.PISTOL;
@@ -46,6 +47,7 @@ public class GunUtil {
         }
     }
     public static int maxAmmo(guns gun) {
+        if (gun == null) return -1;
         switch (gun) {
             case PISTOL:
                 return 12;
