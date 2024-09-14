@@ -3,6 +3,7 @@ package com.github.liamsh.BetterArmedBedwars.sound;
 import com.github.liamsh.BetterArmedBedwars.utils.GunUtil;
 import com.github.liamsh.BetterArmedBedwars.utils.PlayerProximity;
 import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
+import com.github.liamsh.BetterArmedBedwars.utils.StateHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -77,7 +78,7 @@ public class SoundEventHandler {
     }
 
     public static boolean isBlockChord(float value) {
-        return endsWith(value, 0.5F);
+        return endsWith(value, 0.5F) | endsWith(value, 0.0F);
     }
     public static boolean endsWith(float a, float b) {
         float decimalPart =  Math.abs(a) - Math.abs((int) a);
@@ -124,12 +125,7 @@ public class SoundEventHandler {
                     playSound("guns.magnum.shot", vol, x,y,z);
                     return true;
                 }
-                ItemStack itemStack = closestPlayer.getHeldItem();
-                if (itemStack == null) {
-                    playSound("guns.pistol.shot", vol, x,y,z);
-                    return true;
-                }
-                Item item = itemStack.getItem();
+                Item item = StateHandler.getHeldItem();
                 if (item == null) {
                     playSound("guns.pistol.shot", vol, x,y,z);
                     return true;
@@ -165,8 +161,12 @@ public class SoundEventHandler {
                 playSound("guns.shotgun.shot", vol, x,y,z);
                 return true;
             case "fire.fire":
-                if (isBlockChord(x) && isBlockChord(y) && isBlockChord(z)) return false;
-                if (endsWith(x,0.0F) && endsWith(y,0.5625F) && endsWith(z,0.0F)) return false;
+                if (
+                    isBlockChord(x) &&
+                    (isBlockChord(y) | endsWith(y,0.5625F))
+                    && isBlockChord(z)
+                ) return false;
+
                 playSound("guns.flamethrower.shot", vol, x,y,z);
                 return true;
             case "mob.horse.gallop":

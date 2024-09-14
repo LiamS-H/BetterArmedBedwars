@@ -58,12 +58,7 @@ public class Hud extends GuiIngameForge {
 
         if (!Minecraft.getMinecraft().playerController.gameIsSurvivalOrAdventure()) return;
 
-        ItemStack heldStack = Minecraft.getMinecraft().thePlayer.getHeldItem();
-        if (heldStack == null) return;
-        Item heldItem = heldStack.getItem();
-        if (heldItem == null) return;
-
-        if (!GunUtil.isGun(heldItem)) return;
+        if (!GunUtil.isGun(StateHandler.getHeldItem())) return;
 
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 

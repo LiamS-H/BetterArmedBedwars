@@ -31,23 +31,28 @@ public class StateHandler {
     public static int getCurrentAmmo() {
         return ammo;
     }
+    public static boolean isHoldingNonGun() {return gun == null;}
+
+    public static Item getHeldItem() {
+        if (mc == null) return null;
+        if (mc.thePlayer == null) return null;
+        ItemStack curStack = mc.thePlayer.getHeldItem();
+        if (curStack == null) return null;
+        return curStack.getItem();
+    }
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        try {
-            ItemStack curStack = mc.thePlayer.getHeldItem();
-            Item curItem = curStack.getItem();
-            gun = GunUtil.whichGun(curItem);
-            maxAmmo = GunUtil.maxAmmo(gun);
-            ammo = mc.thePlayer.experienceLevel;
+        if (mc.thePlayer == null) return;
+        if (ServerData.notInArmed()) return;
+        gun = GunUtil.whichGun(getHeldItem());
+        maxAmmo = GunUtil.maxAmmo(gun);
+        ammo = mc.thePlayer.experienceLevel;
 
-            //        if (mc.thePlayer.experience)
+        //        if (mc.thePlayer.experience)
 
 
-            if (cooldown > 0) cooldown -= 1;
-        } catch (NullPointerException e) {
-            return;
-        }
+        if (cooldown > 0) cooldown -= 1;
     }
 
 }
