@@ -1,6 +1,7 @@
 package com.github.liamsh.BetterArmedBedwars.setup;
 
 
+import com.github.liamsh.BetterArmedBedwars.animation.GunBindingHandler;
 import com.github.liamsh.BetterArmedBedwars.animation.ItemNbtAnimationsFix;
 import com.github.liamsh.BetterArmedBedwars.gui.Hud;
 import com.github.liamsh.BetterArmedBedwars.utils.TexturesLoader;
@@ -18,10 +19,13 @@ public class InitHandler {
     public static void preInit(FMLPreInitializationEvent event) {
         EventBusHandler.registerEvents();
         TexturesLoader.registerResourcePack();
+        ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
+        GunBindingHandler.preInit(event);
     }
 
     public static void init(FMLInitializationEvent event) {
         ItemNbtAnimationsFix.init();
+        GunBindingHandler.init();
     }
 
     public static void postInit(FMLPostInitializationEvent event) {

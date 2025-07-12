@@ -2,21 +2,6 @@ package com.github.liamsh.BetterArmedBedwars.utils;
 
 import net.minecraft.item.Item;
 
-enum gunState {
-    RELOADING,
-    FIRING,
-    SHOOTING,
-}
-
-enum guns {
-    PISTOL,
-    MAGNUM,
-    SMG,
-    RIFLE,
-    SHOTGUN,
-    FLAMETHROWER,
-}
-
 public class GunUtil {
     public static boolean isGun(Item item) {
         if (item == null) return false;
@@ -70,5 +55,14 @@ public class GunUtil {
         guns gun = whichGun(item);
         if (gun == null) return -1;
         return maxAmmo(gun);
+    }
+
+    public enum guns {
+        PISTOL,
+        MAGNUM,
+        SMG,
+        RIFLE,
+        SHOTGUN,
+        FLAMETHROWER,
     }
 }

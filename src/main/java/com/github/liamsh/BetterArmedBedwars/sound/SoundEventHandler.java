@@ -3,7 +3,7 @@ package com.github.liamsh.BetterArmedBedwars.sound;
 import com.github.liamsh.BetterArmedBedwars.utils.GunUtil;
 import com.github.liamsh.BetterArmedBedwars.utils.PlayerProximity;
 import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
-import com.github.liamsh.BetterArmedBedwars.utils.StateHandler;
+import com.github.liamsh.BetterArmedBedwars.animation.StateHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;

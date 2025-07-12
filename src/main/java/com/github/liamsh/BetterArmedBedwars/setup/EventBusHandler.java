@@ -1,9 +1,10 @@
 package com.github.liamsh.BetterArmedBedwars.setup;
 
+import com.github.liamsh.BetterArmedBedwars.animation.GunBindingHandler;
 import com.github.liamsh.BetterArmedBedwars.animation.ItemNbtAnimationsFix;
 import com.github.liamsh.BetterArmedBedwars.sound.SoundEventHandler;
 import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
-import com.github.liamsh.BetterArmedBedwars.utils.StateHandler;
+import com.github.liamsh.BetterArmedBedwars.animation.StateHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 public class EventBusHandler {
@@ -13,5 +14,6 @@ public class EventBusHandler {
         MinecraftForge.EVENT_BUS.register(new ItemNbtAnimationsFix());
         MinecraftForge.EVENT_BUS.register(new InitHandler());
         MinecraftForge.EVENT_BUS.register(new StateHandler());
+        MinecraftForge.EVENT_BUS.register(new GunBindingHandler());
     }
 }

@@ -2,7 +2,7 @@ package com.github.liamsh.BetterArmedBedwars.gui;
 
 import com.github.liamsh.BetterArmedBedwars.utils.GunUtil;
 import com.github.liamsh.BetterArmedBedwars.utils.ServerData;
-import com.github.liamsh.BetterArmedBedwars.utils.StateHandler;
+import com.github.liamsh.BetterArmedBedwars.animation.StateHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -10,8 +10,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
@@ -78,7 +76,7 @@ public class Hud extends GuiIngameForge {
 
 
         int hotbarX = width / 2 - barWidth / 2;
-        int hotbarY = height - 22;
+        int hotbarY = height - 24;
         int xpTextX = hotbarX + barWidth + 10;
         int xpTextY = hotbarY + 9;
 
